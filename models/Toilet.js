@@ -28,6 +28,13 @@ const ToiletSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+
+	ratingScore: {
+		type: Number,
+		required: true,
+		/* min: 1, 
+		max: 5, */ 
+	},
 });
 
 // gecode and create location
