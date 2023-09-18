@@ -3,6 +3,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const rateToiletRoute = require('./routes/toilets.js'); // Adjust this path
+
+
+
+
+
 
 // load env variables
 
