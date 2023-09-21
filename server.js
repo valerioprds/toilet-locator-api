@@ -3,12 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const rateToiletRoute = require('./routes/toilets.js'); // Adjust this path
-
-
-
-
-
+const rateToiletRoute = require("./routes/toilets.js"); // Adjust this path
 
 // load env variables
 
@@ -30,10 +25,11 @@ app.use(cors());
 
 // set static folder
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/api/v1/toilets", require("./routes/toilets"));
+
 
 const PORT = process.env.PORT || 5000;
 

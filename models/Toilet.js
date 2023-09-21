@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const geocoder = require("../utils/geocoder");
+//const geocoder = require("../utils/geocoder");
 
 const ToiletSchema = new mongoose.Schema({
 	toiletId: {
@@ -9,10 +9,10 @@ const ToiletSchema = new mongoose.Schema({
 		trim: true,
 		maxlenght: [10, "Store ID must be less than 10 characters"],
 	},
-	address: {
+	/* address: {
 		type: String,
 		required: [true, "Please add an address"],
-	},
+	}, */
 	location: {
 		type: {
 			type: String,
@@ -29,21 +29,23 @@ const ToiletSchema = new mongoose.Schema({
 		default: Date.now,
 	},
 	// new schema for rating
-	ratings: [
+	/* ratings: [
 		{
 			ip: String,
 			score: Number,
 		},
-	],
+	], */
 });
 
 // gecode and create location
 ToiletSchema.pre("save", async function (next) {
-	const loc = await geocoder.geocode(this.address);
+	//const loc = await geocoder.geocode(this.address);
 	this.location = {
 		type: "Point",
-		coordinates: [loc[0].longitude, loc[0].latitude],
-		formattedAddress: loc[0].formattedAddress,
+		        //coordinates: this.location.coordinates
+
+		coordinates: [2.194360415675912, 41.402947745952986],
+		//formattedAddress: loc[0].formattedAddress,
 	};
 
 	//Do not save address
