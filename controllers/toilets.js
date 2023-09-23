@@ -25,12 +25,14 @@ exports.getToilets = async (req, res, next) => {
 
 exports.addToilets = async (req, res, next) => {
 	try {
-		const toilet = await Toilet.create(req.body);
+		const jsonBody = JSON.parse(JSON.stringify(req.body));
+		const toilet = await Toilet.create(jsonBody);
 
 		return res.status(200).json({
 			success: true,
 			data: toilet,
 		});
+
 	} catch (error) {
 		console.error(error);
 		if (error.code === 11000) {
