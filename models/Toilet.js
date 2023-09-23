@@ -29,12 +29,16 @@ const ToiletSchema = new mongoose.Schema({
 		default: Date.now,
 	},
 	// new schema for rating
-	/* ratings: [
+	ratings: [
 		{
-			ip: String,
+			ip: {
+				type: String,
+				unique: true,
+				required: [true, "Please add user ip"]
+			},
 			score: Number,
-		},
-	], */
+		}
+	]
 });
 
 // gecode and create location
