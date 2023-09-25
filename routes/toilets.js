@@ -12,12 +12,7 @@ router.route("/")
 
 module.exports = router;
 
-function getUserIP(req, res, next) {
-	const userIP =
-		req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-	req.userIP = userIP;
-	next();
-}
+
 
 router.route("/rateToilet").post(async (req, res) => {
 	try {
