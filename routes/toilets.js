@@ -1,20 +1,55 @@
 const express = require("express");
-const Toilet = require('../models/Toilet'); // Adjust this path accordingly
-
+const Toilet = require("../models/Toilet"); // Adjust this path accordingly
 
 const { getToilets, addToilets } = require("../controllers/toilets");
 
 const router = express.Router();
 
-router.route("/")
-	.get(getToilets)
-	.post(addToilets);
+router.route("/").get(getToilets).post(addToilets);
 
 module.exports = router;
 
-
-
 router.route("/rateToilet").post(async (req, res) => {
+	try {
+		const { toiletId, userRating } = req.body;
+
+		const toilet = await Toilet.findOne({ toiletId: toiletId });
+		if (!toilet) {
+			return res.status(404).json({ error: "Toilet not found" });
+		}
+
+		const userIP = req.socket.remoteAddress;
+		const toiletRatings = toilet?.ratings ?? [];
+
+		// Siempre agregamos una nueva entrada de calificación
+		toiletRatings.push({ ip: userIP, score: userRating });
+
+		toilet.ratings = toiletRatings;
+
+		// Calcular el promedio
+		const totalScore = toiletRatings.reduce(
+			(acc, rating) => acc + rating.score,
+			0
+		);
+		console.log("totalscore es: ", totalScore);
+		const averageScore = totalScore / toiletRatings.length;
+
+		console.log("Average Rating:", averageScore); // Log the average rating
+
+		await toilet.save();
+
+		res.status(200).json({
+			success: true,
+			message: "Rating added successfully!",
+			averageRating: averageScore,
+		});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+});
+
+/* router.route("/rateToilet").post(async (req, res) => {
 	try {
 		const jsonBody = JSON.parse(JSON.stringify(req.body));
 
@@ -54,4 +89,4 @@ router.route("/rateToilet").post(async (req, res) => {
 	} catch (error) {
 		console.error(error)
 	}
-});
+}); */
