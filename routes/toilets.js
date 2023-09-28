@@ -31,7 +31,9 @@ router.route("/rateToilet").post(async (req, res) => {
 			(acc, rating) => acc + rating.score,
 			0
 		);
-		console.log("totalscore es: ", totalScore);
+		console.log("totalscore es: ", totalScore, );
+		console.log('Toilet is ', toiletId)
+		
 		const averageScore = totalScore / toiletRatings.length;
 
 		console.log("Average Rating:", averageScore); // Log the average rating
