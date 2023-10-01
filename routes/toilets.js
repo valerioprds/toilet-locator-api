@@ -31,10 +31,11 @@ router.route("/rateToilet").post(async (req, res) => {
 			(acc, rating) => acc + rating.score,
 			0
 		);
-		console.log("totalscore es: ", totalScore, );
-		console.log('Toilet is ', toiletId)
-		
-		const averageScore = totalScore / toiletRatings.length;
+		console.log("totalscore es: ", totalScore);
+		console.log("Toilet is ", toiletId);
+		console.log("number of votes", toiletRatings.length);
+
+		const averageScore = totalScore / toiletRatings.length
 
 		console.log("Average Rating:", averageScore); // Log the average rating
 
@@ -50,6 +51,9 @@ router.route("/rateToilet").post(async (req, res) => {
 		res.status(500).json({ error: "Internal Server Error" });
 	}
 });
+
+
+
 
 /* router.route("/rateToilet").post(async (req, res) => {
 	try {
