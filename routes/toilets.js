@@ -44,7 +44,7 @@ router.route("/rateToilet").post(async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: "Rating added successfully!",
-			averageRating: averageScore,
+			averageRating: averageScore.toFixed(2),
 		});
 	} catch (error) {
 		console.error(error);
