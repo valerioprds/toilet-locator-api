@@ -31,9 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/toilets", require("./routes/toilets"));
 
 
-app.get('/', (req,res) => {
-	res.send('la pagina de incio ')
-})
+
 
 
 const PORT = process.env.PORT || 5000;
